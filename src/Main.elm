@@ -1,4 +1,4 @@
-import Html exposing (Html, div, text, input, span)
+import Html exposing (Html, div, text, input, span, h1, ul, li)
 import Html.Attributes exposing (class)
 import Html.App
 import Html.Events exposing (onInput, onClick)
@@ -22,8 +22,8 @@ type alias Model =
 
 model : Model
 model =
-    { enemy = Array.fromList [ Hero.ana, Hero.ana, Hero.ana, Hero.ana, Hero.ana, Hero.ana ]
-    , ally = Array.fromList [ Hero.ana, Hero.ana, Hero.ana, Hero.ana, Hero.ana, Hero.ana ]
+    { enemy = Array.fromList [ Hero.mccree, Hero.roadhog, Hero.lucio, Hero.genji, Hero.reinhardt, Hero.zenyatta ]
+    , ally = Array.fromList [ Hero.mccree, Hero.roadhog, Hero.lucio, Hero.genji, Hero.reinhardt, Hero.zenyatta ]
     , changeHero = Nothing
     }
 
@@ -50,18 +50,44 @@ view : Model -> Html Msg
 view model =
     div []
         [ div [ class "teams" ]
-              [ div [ class "enemy" ] (Array.toList (Array.indexedMap enemyHeroView model.enemy))
-              , div [ class "ally" ] (Array.toList (Array.indexedMap allyHeroView model.ally))
+              [ h1 [ ] [ text "Enemy Team" ]
+              , div [ class "enemy" ] <|
+                    Array.toList (Array.indexedMap (heroView Team.Enemy (Array.fromList [])) model.enemy)
+              , h1 [ ] [ text "Ally Team" ]
+              , div [ class "ally" ] <|
+                  Array.toList (Array.indexedMap (heroView Team.Ally model.enemy) model.ally)
               ]
-        , div [ class (showHeroSelector model.changeHero) ] (heroListView Hero.heroes)
+        , div [ class (showHeroSelector model.changeHero) ] [ heroListView Hero.heroes ]
         ]
 
 showHeroSelector : Maybe (Team.Type, Int) -> String
-showHeroSelector m = case m of
-                         Nothing -> "hidden selector"
-                         Just _ -> "selector"
+showHeroSelector m =
+    case m of
+        Nothing -> "hidden selector"
+        Just _ -> "selector"
 
-enemyHeroView i hero = span [ onClick (ChangeHero Team.Enemy i), class "hero" ] [ text hero.displayName ]
-allyHeroView i hero = span [ onClick (ChangeHero Team.Ally i), class "hero" ] [ text hero.displayName ]
+heroClass hero =
+    "portrait " ++ hero.name ++ " " ++ toString hero.role
 
-heroListView list = List.map (\hero -> span [ onClick (SetHero hero), class "hero" ] [ text hero.displayName ] ) list
+heroView teamType otherTeam i hero =
+    div [ onClick (ChangeHero teamType i), class "hero" ]
+        [ div [ class (heroClass hero) ] [ span [ class "name" ] [ text hero.displayName ] ]
+        , strengthsView otherTeam hero ]
+
+strengthsView otherTeam hero =
+    let
+        analysis = Team.analyseHero otherTeam hero
+    in
+        div [ ]
+            [ ul [ class "strength" ] <|
+                  List.map (\strong -> li [] [ text strong.displayName ]) analysis.strongCounters
+            , ul [ class "weakness" ] <|
+                List.map (\weak -> li [] [ text weak.displayName ]) analysis.weakCounters
+            ]
+
+heroListView list =
+    div [ class "selector-inner" ] <| List.map (heroListItemView) list
+
+heroListItemView hero =
+    div [ onClick (SetHero hero), class ("hero small " ++ (heroClass hero)) ]
+        [ span [ class "name" ] [ text hero.displayName ] ]

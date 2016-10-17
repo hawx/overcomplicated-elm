@@ -140,10 +140,25 @@ h1 {
 .small.zarya      { background-image: url("/assets/heroes/small/zarya.png"); }
 .small.zenyatta   { background-image: url("/assets/heroes/small/zenyatta.png"); }
 
-.strength {
+.strength, .weakness {
+    list-style: none;
+    padding-left: 2rem;
+}
+
+.strength li:before,
+.weakness li:before {
+    font-size: 2rem;
+    position: absolute;
+    left: 0;
+    margin-top: -.5rem;
+}
+
+.strength li:before {
+    content: '👍';
     color: green;
 }
 
-.weakness {
+.weakness li:before {
+    content: '👎';
     color: red;
 }

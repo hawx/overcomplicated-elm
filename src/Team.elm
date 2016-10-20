@@ -1,8 +1,7 @@
 module Team exposing ( Type(..)
                      , Team
-                     , Analysis
-                     , analyse
-                     , analyseHero)
+                     , counters
+                     , counteredBy)
 
 import List
 import Array exposing (Array)
@@ -12,25 +11,11 @@ type Type = Ally | Enemy
 
 type alias Team = Array Hero
 
-type alias Analysis = { hero : Hero
-                      , strongCounters : List Hero
-                      , weakCounters : List Hero
-                      }
+counters : Hero -> Team -> List Hero
+counters hero enemies = List.filter (isCounter hero) (Array.toList enemies)
 
-analyse : Team -> Team -> Array Analysis
-analyse allies enemies =
-    Array.map (analyseHero enemies) allies
-
-analyseHero : Team -> Hero -> Analysis
-analyseHero enemies ally =
-    let
-        strong = List.filter (isCounter ally) (Array.toList enemies)
-        weak = List.filter (isCounteredBy ally) (Array.toList enemies)
-    in
-        { hero = ally
-        , strongCounters = strong
-        , weakCounters = weak
-        }
+counteredBy : Hero -> Team -> List Hero
+counteredBy hero enemies = List.filter (isCounteredBy hero) (Array.toList enemies)
 
 isCounter : Hero -> Hero -> Bool
 isCounter subject target =

@@ -86,13 +86,14 @@ heroView teamType otherTeam i hero =
 
 strengthsView otherTeam hero =
     let
-        analysis = Team.analyseHero otherTeam hero
+        strengths = Team.counters hero otherTeam
+        weaknesses = Team.counteredBy hero otherTeam
     in
         div [ ]
             [ ul [ class "strength" ] <|
-                  List.map (\strong -> li [] [ text strong.displayName ]) analysis.strongCounters
+                  List.map (\strong -> li [] [ text strong.displayName ]) strengths
             , ul [ class "weakness" ] <|
-                List.map (\weak -> li [] [ text weak.displayName ]) analysis.weakCounters
+                List.map (\weak -> li [] [ text weak.displayName ]) weaknesses
             ]
 
 heroListView list =

@@ -72,12 +72,6 @@ view model =
               ]
         ] ++ ( heroListView Hero.heroes model.changeHero )
 
-showHeroSelector : Maybe HeroChange -> String
-showHeroSelector m =
-    case m of
-        Nothing -> "hidden selector"
-        Just _ -> "selector"
-
 heroClass hero =
     "portrait " ++ hero.name ++ " " ++ toString hero.role
 
@@ -103,7 +97,8 @@ heroListView list change =
     case change of
         Nothing -> []
         Just c -> [ div [ class "selector" ]
-                        [ div [ class "selector-inner" ] <| List.map (heroListItemView c.team c.i) list ]
+                        [ div [ class "selector-inner" ] <|
+                              List.map (heroListItemView c.team c.i) list ]
                   ]
 
 heroListItemView team index hero =
@@ -115,4 +110,4 @@ heroListItemView team index hero =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Keyboard.presses KeyPress
+    Keyboard.downs KeyPress

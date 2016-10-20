@@ -15,10 +15,15 @@ main =
 
 -- Model
 
+bestCounter : Model -> Hero
+bestCounter model = Team.bestCounter model.enemy
+
+type alias HeroChange = { team : Team.Type, i : Int }
+
 type alias Model =
     { enemy : Team
     , ally : Team
-    , changeHero : Maybe (Team.Type, Int)
+    , changeHero : Maybe HeroChange
     }
 
 model : Model
@@ -39,14 +44,14 @@ update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
     case msg of
         ChangeHero team i ->
-            ({ model | changeHero = Just (team, i) }, Cmd.none)
+            ({ model | changeHero = Just { team = team, i = i } }, Cmd.none)
 
         SetHero hero ->
             case model.changeHero of
                 Nothing -> ({ model | changeHero = Nothing }, Cmd.none)
-                Just (teamType, index) -> case teamType of
-                                              Team.Ally -> ({ model | changeHero = Nothing, ally = Array.set index hero model.ally }, Cmd.none)
-                                              Team.Enemy -> ({ model | changeHero = Nothing, enemy = Array.set index hero model.enemy }, Cmd.none)
+                Just change -> case change.team of
+                                   Team.Ally -> ({ model | changeHero = Nothing, ally = Array.set change.i hero model.ally }, Cmd.none)
+                                   Team.Enemy -> ({ model | changeHero = Nothing, enemy = Array.set change.i hero model.enemy }, Cmd.none)
 
         KeyPress code ->
             if code == 27 then
@@ -58,7 +63,7 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-    div []
+    div [] <|
         [ div [ class "teams" ]
               [ h1 [ ] [ text "Enemy Team" ]
               , div [ class "enemy" ] <|
@@ -67,10 +72,9 @@ view model =
               , div [ class "ally" ] <|
                   Array.toList (Array.indexedMap (heroView Team.Ally model.enemy) model.ally)
               ]
-        , div [ class (showHeroSelector model.changeHero) ] [ heroListView Hero.heroes ]
-        ]
+        ] ++ ( heroListView Hero.heroes model.changeHero )
 
-showHeroSelector : Maybe (Team.Type, Int) -> String
+showHeroSelector : Maybe HeroChange -> String
 showHeroSelector m =
     case m of
         Nothing -> "hidden selector"
@@ -96,8 +100,13 @@ strengthsView otherTeam hero =
                 List.map (\weak -> li [] [ text weak.displayName ]) weaknesses
             ]
 
-heroListView list =
-    div [ class "selector-inner" ] <| List.map (heroListItemView) list
+heroListView : List Hero -> Maybe HeroChange -> List (Html Msg)
+heroListView list change =
+    case change of
+        Nothing -> []
+        Just c -> [ div [ class "selector" ]
+                        [ div [ class "selector-inner" ] <| List.map (heroListItemView) list ]
+                  ]
 
 heroListItemView hero =
     div [ onClick (SetHero hero), class ("hero small " ++ (heroClass hero)) ]

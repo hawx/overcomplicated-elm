@@ -1,7 +1,8 @@
 module Team exposing ( Type(..)
                      , Team
                      , counters
-                     , counteredBy)
+                     , counteredBy
+                     , bestCounter)
 
 import List
 import Array exposing (Array)
@@ -16,6 +17,17 @@ counters hero enemies = List.filter (isCounter hero) (Array.toList enemies)
 
 counteredBy : Hero -> Team -> List Hero
 counteredBy hero enemies = List.filter (isCounteredBy hero) (Array.toList enemies)
+
+bestCounter : Team -> Hero
+bestCounter enemies =
+    let
+        score = \hero -> (List.length (counters hero enemies)) - (List.length (counteredBy hero enemies))
+        counterMatrix = List.map (\hero -> { hero = hero, score= score hero }) Hero.heroes
+        best = List.head (List.sortBy (.score) counterMatrix)
+    in
+        case best of
+            Nothing -> Hero.hanzo
+            Just x -> x.hero
 
 isCounter : Hero -> Hero -> Bool
 isCounter subject target =

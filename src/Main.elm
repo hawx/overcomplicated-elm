@@ -38,7 +38,7 @@ init = (model, Cmd.none)
 
 -- Update
 
-type Msg = ChangeHero Team.Type Int | SetHero Hero | KeyPress Keyboard.KeyCode
+type Msg = ChangeHero Team.Type Int | SetHero Team.Type Int Hero | KeyPress Keyboard.KeyCode
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
@@ -46,12 +46,10 @@ update msg model =
         ChangeHero team i ->
             ({ model | changeHero = Just { team = team, i = i } }, Cmd.none)
 
-        SetHero hero ->
-            case model.changeHero of
-                Nothing -> ({ model | changeHero = Nothing }, Cmd.none)
-                Just change -> case change.team of
-                                   Team.Ally -> ({ model | changeHero = Nothing, ally = Array.set change.i hero model.ally }, Cmd.none)
-                                   Team.Enemy -> ({ model | changeHero = Nothing, enemy = Array.set change.i hero model.enemy }, Cmd.none)
+        SetHero team index hero ->
+            case team of
+                Team.Ally -> ({ model | changeHero = Nothing, ally = Array.set index hero model.ally }, Cmd.none)
+                Team.Enemy -> ({ model | changeHero = Nothing, enemy = Array.set index hero model.enemy }, Cmd.none)
 
         KeyPress code ->
             if code == 27 then
@@ -105,11 +103,11 @@ heroListView list change =
     case change of
         Nothing -> []
         Just c -> [ div [ class "selector" ]
-                        [ div [ class "selector-inner" ] <| List.map (heroListItemView) list ]
+                        [ div [ class "selector-inner" ] <| List.map (heroListItemView c.team c.i) list ]
                   ]
 
-heroListItemView hero =
-    div [ onClick (SetHero hero), class ("hero small " ++ (heroClass hero)) ]
+heroListItemView team index hero =
+    div [ onClick (SetHero team index hero), class ("hero small " ++ (heroClass hero)) ]
         [ span [ class "name" ] [ text hero.displayName ] ]
 
 

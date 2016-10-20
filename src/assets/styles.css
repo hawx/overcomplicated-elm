@@ -139,6 +139,7 @@ h1 {
 .small.winston    { background-image: url("/assets/heroes/small/winston.png"); }
 .small.zarya      { background-image: url("/assets/heroes/small/zarya.png"); }
 .small.zenyatta   { background-image: url("/assets/heroes/small/zenyatta.png"); }
+.small.auto       { background-color: white; }
 
 .strength, .weakness {
     list-style: none;

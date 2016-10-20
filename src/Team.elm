@@ -21,7 +21,7 @@ counteredBy hero enemies = List.filter (isCounteredBy hero) (Array.toList enemie
 bestCounter : Team -> Hero
 bestCounter enemies =
     let
-        score = \hero -> (List.length (counters hero enemies)) - (List.length (counteredBy hero enemies))
+        score = \hero -> (List.length (counteredBy hero enemies)) - (List.length (counters hero enemies))
         counterMatrix = List.map (\hero -> { hero = hero, score= score hero }) Hero.heroes
         best = List.head (List.sortBy (.score) counterMatrix)
     in

@@ -15,9 +15,6 @@ main =
 
 -- Model
 
-bestCounter : Model -> Hero
-bestCounter model = Team.bestCounter model.enemy
-
 type alias HeroChange = { team : Team.Type, i : Int }
 
 type alias Model =
@@ -38,7 +35,7 @@ init = (model, Cmd.none)
 
 -- Update
 
-type Msg = ChangeHero Team.Type Int | SetHero Team.Type Int Hero | KeyPress Keyboard.KeyCode
+type Msg = ChangeHero Team.Type Int | SetHero Team.Type Int Hero | SetAuto Int | KeyPress Keyboard.KeyCode
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
@@ -50,6 +47,9 @@ update msg model =
             case team of
                 Team.Ally -> ({ model | changeHero = Nothing, ally = Array.set index hero model.ally }, Cmd.none)
                 Team.Enemy -> ({ model | changeHero = Nothing, enemy = Array.set index hero model.enemy }, Cmd.none)
+
+        SetAuto index ->
+            ({ model | changeHero = Nothing, ally = Array.set index (Team.bestCounter model.enemy) model.ally }, Cmd.none)
 
         KeyPress code ->
             if code == 27 then
@@ -70,7 +70,7 @@ view model =
               , div [ class "ally" ] <|
                   Array.toList (Array.indexedMap (heroView Team.Ally model.enemy) model.ally)
               ]
-        ] ++ ( heroListView Hero.heroes model.changeHero )
+        ] ++ ( heroListView Hero.heroes model.enemy model.changeHero )
 
 heroClass hero =
     "portrait " ++ hero.name ++ " " ++ toString hero.role
@@ -92,19 +92,26 @@ strengthsView otherTeam hero =
                 List.map (\weak -> li [] [ text weak.displayName ]) weaknesses
             ]
 
-heroListView : List Hero -> Maybe HeroChange -> List (Html Msg)
-heroListView list change =
+heroListView : List Hero -> Team -> Maybe HeroChange -> List (Html Msg)
+heroListView list enemies change =
     case change of
         Nothing -> []
-        Just c -> [ div [ class "selector" ]
-                        [ div [ class "selector-inner" ] <|
-                              List.map (heroListItemView c.team c.i) list ]
-                  ]
+        Just c ->
+            let
+                heroes = List.map (heroListItemView c.team c.i) list
+                inner = case c.team of
+                            Team.Ally -> [ div [ class "selector-inner" ] <| heroes ++ [autoListItemView c.i] ]
+                            Team.Enemy -> [ div [ class "selector-inner" ] heroes ]
+            in
+                [ div [ class "selector" ] inner ]
 
 heroListItemView team index hero =
     div [ onClick (SetHero team index hero), class ("hero small " ++ (heroClass hero)) ]
         [ span [ class "name" ] [ text hero.displayName ] ]
 
+autoListItemView index =
+    div [ onClick (SetAuto index), class ("hero small auto") ]
+        [ span [ class "name" ] [ text "Best Counter" ] ]
 
 -- Subscriptions
 

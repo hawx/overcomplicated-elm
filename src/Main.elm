@@ -49,7 +49,7 @@ update msg model =
                 Team.Enemy -> ({ model | changeHero = Nothing, enemy = Array.set index hero model.enemy }, Cmd.none)
 
         SetAuto index ->
-            ({ model | changeHero = Nothing, ally = Array.set index (Team.bestCounter model.enemy) model.ally }, Cmd.none)
+            ({ model | changeHero = Nothing, ally = Array.set index (Team.bestCounter model.ally model.enemy) model.ally }, Cmd.none)
 
         KeyPress code ->
             if code == 27 then

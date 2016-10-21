@@ -14,7 +14,7 @@ h1 {
     text-align: center;
 }
 
-.ally, .enemy {
+.team {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;

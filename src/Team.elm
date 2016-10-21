@@ -1,5 +1,6 @@
 module Team exposing ( Type(..)
                      , Team
+                     , displayName
                      , counters
                      , counteredBy
                      , bestCounter)
@@ -9,6 +10,10 @@ import Array exposing (Array)
 import Hero exposing (Hero)
 
 type Type = Ally | Enemy
+
+displayName t = case t of
+                    Ally -> "Ally Team"
+                    Enemy -> "Enemy Team"
 
 type alias Team = Array Hero
 

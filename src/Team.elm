@@ -28,13 +28,20 @@ bestCounter allies enemies =
     let
         allyList = Array.toList allies
         notAllies = List.filter (\h -> not (List.member h allyList)) Hero.heroes
-        score = \hero -> (List.length (counteredBy hero enemies)) - (List.length (counters hero enemies))
-        counterMatrix = List.map (\hero -> { hero = hero, score = score hero }) notAllies
+        counterMatrix = List.map (\hero -> { hero = hero, score = score hero allies enemies }) notAllies
         best = List.head (List.sortBy (.score) counterMatrix)
     in
         case best of
             Nothing -> Hero.hanzo
             Just x -> x.hero
+
+score : Hero -> Team -> Team -> Int
+score hero allies enemies =
+    let
+        strengths = List.length (counters hero enemies)
+        weaknesses = List.length (counteredBy hero enemies)
+    in
+        weaknesses - strengths
 
 isCounter : Hero -> Hero -> Bool
 isCounter subject target =

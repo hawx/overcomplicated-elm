@@ -35,7 +35,7 @@ h1 {
     height: 300px;
     position: relative;
 
-    background-image: url('/assets/heroes/big.png');
+    background-image: url("/assets/heroes/big.png");
 }
 
 .hero .name {
@@ -110,7 +110,7 @@ h1 {
     width: 112px;
     height: 100px;
     margin: .3rem;
-    background-image: url('/assets/heroes/small.png');
+    background-image: url("/assets/heroes/small.png");
 }
 
 .hero.small .name {

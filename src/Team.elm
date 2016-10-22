@@ -46,7 +46,7 @@ score hero allies enemies =
         weaknesses = List.length (counteredBy hero enemies)
         isMissingCounter = if List.any (\x -> x.name == hero.name) (uncountered allies enemies) then 1 else 0
     in
-        weaknesses - strengths - (isMissingCounter * 3)
+        weaknesses - strengths
 
 isCounter : Hero -> Hero -> Bool
 isCounter subject target = isWeak subject target || isStrong target subject

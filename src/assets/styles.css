@@ -33,8 +33,9 @@ h1 {
     border: 1px solid black;
     width: 174px;
     height: 300px;
-    background-size: 100% auto;
     position: relative;
+
+    background-image: url('/assets/heroes/big.png');
 }
 
 .hero .name {
@@ -58,28 +59,28 @@ h1 {
 .Defense { background-color: blue; }
 .Tank { background-color: grey; }
 
-.ana        { background-image: url("/assets/heroes/ana.png"); }
-.bastion    { background-image: url("/assets/heroes/bastion.png"); }
-.dva        { background-image: url("/assets/heroes/dva.png"); }
-.genji      { background-image: url("/assets/heroes/genji.png"); }
-.hanzo      { background-image: url("/assets/heroes/hanzo.png"); }
-.junkrat    { background-image: url("/assets/heroes/junkrat.png"); }
-.lucio      { background-image: url("/assets/heroes/lucio.png"); }
-.mccree     { background-image: url("/assets/heroes/mccree.png"); }
-.mei        { background-image: url("/assets/heroes/mei.png"); }
-.mercy      { background-image: url("/assets/heroes/mercy.png"); }
-.pharah     { background-image: url("/assets/heroes/pharah.png"); }
-.reaper     { background-image: url("/assets/heroes/reaper.png"); }
-.reinhardt  { background-image: url("/assets/heroes/reinhardt.png"); }
-.roadhog    { background-image: url("/assets/heroes/roadhog.png"); }
-.soldier76  { background-image: url("/assets/heroes/soldier76.png"); }
-.symmetra   { background-image: url("/assets/heroes/symmetra.png"); }
-.torbjorn   { background-image: url("/assets/heroes/torbjorn.png"); }
-.tracer     { background-image: url("/assets/heroes/tracer.png"); }
-.widowmaker { background-image: url("/assets/heroes/widowmaker.png"); }
-.winston    { background-image: url("/assets/heroes/winston.png"); }
-.zarya      { background-image: url("/assets/heroes/zarya.png"); }
-.zenyatta   { background-image: url("/assets/heroes/zenyatta.png"); }
+.ana        { background-position: 0px 0px; }
+.bastion    { background-position: 3780px 0px; }
+.dva        { background-position: 3600px 0px; }
+.genji      { background-position: 3420px 0; }
+.hanzo      { background-position: 3240px 0; }
+.junkrat    { background-position: 3060px 0; }
+.lucio      { background-position: 2880px 0; }
+.mccree     { background-position: 2700px 0; }
+.mei        { background-position: 2520px 0; }
+.mercy      { background-position: 2340px 0; }
+.pharah     { background-position: 2160px 0; }
+.reaper     { background-position: 1980px 0; }
+.reinhardt  { background-position: 1800px 0; }
+.roadhog    { background-position: 1620px 0; }
+.soldier76  { background-position: 1440px 0; }
+.symmetra   { background-position: 1260px 0; }
+.torbjorn   { background-position: 1080px 0; }
+.tracer     { background-position: 900px 0; }
+.widowmaker { background-position: 720px 0; }
+.winston    { background-position: 540px 0; }
+.zarya      { background-position: 360px 0; }
+.zenyatta   { background-position: 180px 0; }
 
 
 .selector {
@@ -109,35 +110,36 @@ h1 {
     width: 112px;
     height: 100px;
     margin: .3rem;
+    background-image: url('/assets/heroes/small.png');
 }
 
 .hero.small .name {
     font-size: 1rem;
 }
 
-.small.ana        { background-image: url("/assets/heroes/small/ana.png"); }
-.small.bastion    { background-image: url("/assets/heroes/small/bastion.png"); }
-.small.dva        { background-image: url("/assets/heroes/small/dva.png"); }
-.small.genji      { background-image: url("/assets/heroes/small/genji.png"); }
-.small.hanzo      { background-image: url("/assets/heroes/small/hanzo.png"); }
-.small.junkrat    { background-image: url("/assets/heroes/small/junkrat.png"); }
-.small.lucio      { background-image: url("/assets/heroes/small/lucio.png"); }
-.small.mccree     { background-image: url("/assets/heroes/small/mccree.png"); }
-.small.mei        { background-image: url("/assets/heroes/small/mei.png"); }
-.small.mercy      { background-image: url("/assets/heroes/small/mercy.png"); }
-.small.pharah     { background-image: url("/assets/heroes/small/pharah.png"); }
-.small.reaper     { background-image: url("/assets/heroes/small/reaper.png"); }
-.small.reinhardt  { background-image: url("/assets/heroes/small/reinhardt.png"); }
-.small.roadhog    { background-image: url("/assets/heroes/small/roadhog.png"); }
-.small.soldier76  { background-image: url("/assets/heroes/small/soldier76.png"); }
-.small.symmetra   { background-image: url("/assets/heroes/small/symmetra.png"); }
-.small.torbjorn   { background-image: url("/assets/heroes/small/torbjorn.png"); }
-.small.tracer     { background-image: url("/assets/heroes/small/tracer.png"); }
-.small.widowmaker { background-image: url("/assets/heroes/small/widowmaker.png"); }
-.small.winston    { background-image: url("/assets/heroes/small/winston.png"); }
-.small.zarya      { background-image: url("/assets/heroes/small/zarya.png"); }
-.small.zenyatta   { background-image: url("/assets/heroes/small/zenyatta.png"); }
-.small.auto       { background-color: white; }
+.small.ana        { background-position: 0px 0; }
+.small.bastion    { background-position: 2352px 0; }
+.small.dva        { background-position: 2240px 0; }
+.small.genji      { background-position: 2128px 0; }
+.small.hanzo      { background-position: 2016px 0; }
+.small.junkrat    { background-position: 1904px 0; }
+.small.lucio      { background-position: 1792px 0; }
+.small.mccree     { background-position: 1680px 0; }
+.small.mei        { background-position: 1568px 0; }
+.small.mercy      { background-position: 1456px 0; }
+.small.pharah     { background-position: 1344px 0; }
+.small.reaper     { background-position: 1232px 0; }
+.small.reinhardt  { background-position: 1120px 0; }
+.small.roadhog    { background-position: 1008px 0; }
+.small.soldier76  { background-position: 896px 0; }
+.small.symmetra   { background-position: 784px 0; }
+.small.torbjorn   { background-position: 672px 0; }
+.small.tracer     { background-position: 560px 0; }
+.small.widowmaker { background-position: 448px 0; }
+.small.winston    { background-position: 336px 0; }
+.small.zarya      { background-position: 224px 0; }
+.small.zenyatta   { background-position: 112px 0; }
+.small.auto       { background-color: white; background-image: none; }
 
 .strength, .weakness {
     list-style: none;

@@ -1,0 +1,165 @@
+html, body {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.teams {
+
+}
+
+h1 {
+    text-align: center;
+}
+
+.team {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.hero {
+    display: inline-block;
+    width: 174px;
+    height: 300px;
+    margin: 1rem;
+    position: relative;
+}
+
+.portrait {
+    display: inline-block;
+    border: 1px solid black;
+    width: 174px;
+    height: 300px;
+    position: relative;
+
+    background-image: url("/overcomplicated-elm/assets/heroes/big.png");
+}
+
+.hero .name {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+
+    background-color: rgba(40,53,79,.9);
+
+    color: #d0d0dc;
+    text-transform: uppercase;
+
+    font-size: 1.5em;
+    font-weight: bolder;
+}
+
+.Support { background-color: green; }
+.Offense { background-color: red; }
+.Defense { background-color: blue; }
+.Tank { background-color: grey; }
+
+.ana        { background-position: 0px 0px; }
+.bastion    { background-position: 3780px 0px; }
+.dva        { background-position: 3600px 0px; }
+.genji      { background-position: 3420px 0; }
+.hanzo      { background-position: 3240px 0; }
+.junkrat    { background-position: 3060px 0; }
+.lucio      { background-position: 2880px 0; }
+.mccree     { background-position: 2700px 0; }
+.mei        { background-position: 2520px 0; }
+.mercy      { background-position: 2340px 0; }
+.pharah     { background-position: 2160px 0; }
+.reaper     { background-position: 1980px 0; }
+.reinhardt  { background-position: 1800px 0; }
+.roadhog    { background-position: 1620px 0; }
+.soldier76  { background-position: 1440px 0; }
+.symmetra   { background-position: 1260px 0; }
+.torbjorn   { background-position: 1080px 0; }
+.tracer     { background-position: 900px 0; }
+.widowmaker { background-position: 720px 0; }
+.winston    { background-position: 540px 0; }
+.zarya      { background-position: 360px 0; }
+.zenyatta   { background-position: 180px 0; }
+
+
+.selector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .5);
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.selector-inner {
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: center;
+   max-width: 640px;
+}
+
+.hidden {
+    display: none;
+}
+
+.hero.small {
+    width: 112px;
+    height: 100px;
+    margin: .3rem;
+    background-image: url("/overcomplicated-elm/assets/heroes/small.png");
+}
+
+.hero.small .name {
+    font-size: 1rem;
+}
+
+.small.ana        { background-position: 0px 0; }
+.small.bastion    { background-position: 2352px 0; }
+.small.dva        { background-position: 2240px 0; }
+.small.genji      { background-position: 2128px 0; }
+.small.hanzo      { background-position: 2016px 0; }
+.small.junkrat    { background-position: 1904px 0; }
+.small.lucio      { background-position: 1792px 0; }
+.small.mccree     { background-position: 1680px 0; }
+.small.mei        { background-position: 1568px 0; }
+.small.mercy      { background-position: 1456px 0; }
+.small.pharah     { background-position: 1344px 0; }
+.small.reaper     { background-position: 1232px 0; }
+.small.reinhardt  { background-position: 1120px 0; }
+.small.roadhog    { background-position: 1008px 0; }
+.small.soldier76  { background-position: 896px 0; }
+.small.symmetra   { background-position: 784px 0; }
+.small.torbjorn   { background-position: 672px 0; }
+.small.tracer     { background-position: 560px 0; }
+.small.widowmaker { background-position: 448px 0; }
+.small.winston    { background-position: 336px 0; }
+.small.zarya      { background-position: 224px 0; }
+.small.zenyatta   { background-position: 112px 0; }
+.small.auto       { background-color: white; background-image: none; }
+
+.strength, .weakness {
+    list-style: none;
+    padding-left: 2rem;
+}
+
+.strength li:before,
+.weakness li:before {
+    font-size: 2rem;
+    position: absolute;
+    left: 0;
+    margin-top: -.5rem;
+}
+
+.strength li:before {
+    content: '👍';
+    color: green;
+}
+
+.weakness li:before {
+    content: '👎';
+    color: red;
+}

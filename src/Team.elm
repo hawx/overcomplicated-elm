@@ -3,6 +3,10 @@ module Team exposing ( Type(..)
                      , displayName
                      , counters
                      , counteredBy
+                     , uncountered
+                     , isUncounteredByTeam
+                     , isCounteredByTeam
+                     , score
                      , bestCounter)
 
 import Debug
@@ -25,7 +29,7 @@ counteredBy : Hero -> Team -> List Hero
 counteredBy hero enemies = List.filter (isCounteredBy hero) (Array.toList enemies)
 
 uncountered : Team -> Team -> List Hero
-uncountered allies enemies = List.filter (isUncountered allies) (Array.toList enemies)
+uncountered allies enemies = List.filter (isUncounteredByTeam allies) (Array.toList enemies)
 
 bestCounter : Team -> Team -> Hero
 bestCounter allies enemies =
@@ -42,20 +46,23 @@ bestCounter allies enemies =
 score : Hero -> Team -> Team -> Int
 score hero allies enemies =
     let
-        strengths = List.length (counters hero enemies)
-        weaknesses = List.length (counteredBy hero enemies)
-        isMissingCounter = if List.any (\x -> x.name == hero.name) (uncountered allies enemies) then 1 else 0
+        strengths = List.length (hero `counters` enemies)
+        weaknesses = List.length (hero `counteredBy` enemies)
+        isMissingCounter = if List.any (isCounter hero) (uncountered allies enemies) then 1 else 0
     in
-        weaknesses - strengths
+        weaknesses - strengths - isMissingCounter
 
 isCounter : Hero -> Hero -> Bool
-isCounter subject target = isWeak subject target || isStrong target subject
+isCounter subject target = subject `isWeak` target || target `isStrong` subject
 
 isCounteredBy : Hero -> Hero -> Bool
-isCounteredBy subject target = isStrong subject target || isWeak target subject
+isCounteredBy subject target = target `isCounter` subject
 
-isUncountered : Team -> Hero -> Bool
-isUncountered team subject = List.any (isStrong subject) (Array.toList team)
+isCounteredByTeam : Team -> Hero -> Bool
+isCounteredByTeam team subject = List.any (isCounteredBy subject) (Array.toList team)
+
+isUncounteredByTeam : Team -> Hero -> Bool
+isUncounteredByTeam team = not << isCounteredByTeam team
 
 isStrong : Hero -> Hero -> Bool
 isStrong a b = List.any (\strength -> strength == a.name) b.strongCounters

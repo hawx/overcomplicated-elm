@@ -1,5 +1,6 @@
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
+var ClosureCompilerPlugin = require('webpack-closure-compiler');
 
 module.exports = {
   entry: './src/index.js',
@@ -39,7 +40,15 @@ module.exports = {
     }),
     new CopyWebpackPlugin([
       { from: 'src/assets', to: 'assets'}
-    ])
+    ]),
+    new ClosureCompilerPlugin({
+      compiler: {
+        language_in: 'ECMASCRIPT6',
+        language_out: 'ECMASCRIPT5',
+        compilation_level: 'SIMPLE'
+      },
+      concurrency: 3
+    })
   ],
 
   devServer: {

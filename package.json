@@ -1,24 +1,25 @@
 {
-    "name": "elm-skeleton",
-    "private": true,
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
-    "scripts": {
-        "dev": "webpack-dev-server --hot --inline --port 8090",
-        "build": "webpack",
-        "gh-pages": "git branch -D gh-pages && webpack && mv dist/* . && sed -i 's/\"\\//\"\\/overcomplicated-elm\\//' index.html && sed -i 's/\"\\//\"\\/overcomplicated-elm\\//' assets/styles.css && git checkout -b gh-pages && git add -A && git commit -m 'gh-pages build' && git push -f origin gh-pages && git checkout master"
-    },
-    "author": "",
-    "license": "MIT",
-    "devDependencies": {
-        "clean-webpack-plugin": "^0.1.8",
-        "copy-webpack-plugin": "^1.1.1",
-        "elm-webpack-loader": "^3.0.0",
-        "file-loader": "^0.8.5",
-        "style-loader": "^0.13.0",
-        "webpack": "^1.12.12",
-        "webpack-dev-server": "^1.14.1",
-        "elm-hot-loader": "^0.3.0"
-    }
+  "name": "elm-skeleton",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack-dev-server --hot --inline --port 8090",
+    "build": "webpack",
+    "gh-pages": "git branch -D gh-pages && webpack && mv dist/* . && sed -i 's/\"\\//\"\\/overcomplicated-elm\\//' index.html && sed -i 's/\"\\//\"\\/overcomplicated-elm\\//' assets/styles.css && git checkout -b gh-pages && git add -A && git commit -m 'gh-pages build' && git push -f origin gh-pages && git checkout master"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "clean-webpack-plugin": "^0.1.8",
+    "copy-webpack-plugin": "^1.1.1",
+    "elm-hot-loader": "^0.3.0",
+    "elm-webpack-loader": "^3.0.0",
+    "file-loader": "^0.8.5",
+    "style-loader": "^0.13.0",
+    "webpack": "^1.12.12",
+    "webpack-closure-compiler": "^2.1.1",
+    "webpack-dev-server": "^1.14.1"
+  }
 }
